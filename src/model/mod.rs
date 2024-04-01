@@ -1,7 +1,8 @@
 use clap::Parser;
+use console::Key;
 
 #[derive(Parser, Debug)]
-struct Cli
+pub struct Cli
 {
     #[arg(short, long, default_value_t = 25)]
     pub work_in_minutes: u32,
@@ -11,4 +12,20 @@ struct Cli
     pub sessions_per_cycle: u32,
     #[arg(short, long, default_value_t = 2)]
     pub cycles: u32,
+}
+
+#[derive(Debug)]
+pub enum Signal {
+    Pause
+}
+
+impl Signal {
+ pub fn get_signal(character: &Key) -> Option<Signal> {
+    match character {
+        Key::Char(' ') => Some(Signal::Pause),
+        _ => None
+    }
+ }
+
+
 }
